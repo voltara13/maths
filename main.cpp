@@ -22,7 +22,7 @@ double phi(double x)
 	return (x * x * x - x * x + 5) / 7;
 }
 
-void NewthonMethod()
+bool NewthonMethod()
 {
 	int i = 0;
 	double a, b, eps, x0, xn;
@@ -36,7 +36,10 @@ void NewthonMethod()
 		if (a > b)
 			swap(a, b);
 		if (f(a) * f(b) >= 0)
+		{
 			cout << "Ошибка, корней на данном отрезке нет\n";
+			return false;
+		}
 		else
 		{
 			if (f(a) * d2f(a) > 0) x0 = a;
@@ -53,7 +56,41 @@ void NewthonMethod()
 		cout << "\nВведите '0', чтобы выйти или '1', чтобы продолжить: ";
 		cin >> i;
 	} while (i);
+	return true;
+}
 
+bool HalfDivision()
+{
+	int i = 0;
+	double a, b, eps, x;
+	do
+	{
+		cout << "Введите границы отрезка [a; b] через пробел: ";
+		cin >> a >> b;
+		cout << "Введите точность вычислений: ";
+		cin >> eps;
+		if (a > b)
+			swap(a, b);
+		if (f(a) * f(b) >= 0)
+		{
+			cout << "Ошибка, корней на данном отрезке нет\n";
+			return false;
+		}
+		else
+		{
+			do
+			{
+				i++;
+				x = (a + b) / 2;
+				if (f(a) * f(x) > 0) a = x;
+				else b = x;
+			} while ((b - a) / 2 > eps);
+			cout << "\nКорень: " << x << ", количество итераций: " << i << endl;
+		}
+		cout << "\nВведите '0', чтобы выйти или '1', чтобы продолжить: ";
+		cin >> i;
+	} while (i);
+	return true;
 }
 
 void SimpleIterations()
@@ -83,41 +120,9 @@ void SimpleIterations()
 	} while (i);
 }
 
-void HalfDivision()
-{
-	int i = 0;
-	double a, b, eps, x;
-	do
-	{
-		cout << "Введите границы отрезка [a; b] через пробел: ";
-		cin >> a >> b;
-		cout << "Введите точность вычислений: ";
-		cin >> eps;
-		if (a > b)
-			swap(a, b);
-		if (f(a) * f(b) >= 0)
-			cout << "Ошибка, корней на данном отрезке нет\n";
-		else
-		{
-			do
-			{
-				i++;
-				x = (a + b) / 2;
-				if (f(a) * f(x) > 0) a = x;
-				else b = x;
-			} while ((b - a) / 2 > eps);
-			cout << "\nКорень: " << x << ", количество итераций: " << i << endl;
-		}
-		cout << "\nВведите '0', чтобы выйти или '1', чтобы продолжить: ";
-		cin >> i;
-	} while (i);
-}
-
 int main()
 {
 	setlocale(LC_ALL, "Russian");
-	NewthonMethod(); //Метод Ньютона
-	SimpleIterations(); //Метод простых итераций
-	HalfDivision(); //Метод половинного деления
+	if (!NewthonMethod()) if (!HalfDivision()) SimpleIterations();
 	return 0;
 }
