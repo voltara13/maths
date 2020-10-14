@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -62,7 +63,7 @@ void SimpleIterations()
 {
 	double xE[3], eps = 0;
 	int k = 0;
-	cout << "\nВведите точность: ";
+	cout << "\nВведите число знаков после запятой: ";
 	cin >> eps;
 	for (int i = 0; i < 3; i++)
 		resI[i] = B2[i] / A2[i][i];
@@ -77,7 +78,7 @@ void SimpleIterations()
 		}
 		bool flag = true;
 		for (int i = 0; i < 2; i++)
-			if (fabs(xE[i] - resI[i]) > eps)
+			if (fabs(xE[i] - resI[i]) > pow(10, -eps))
 			{
 				flag = false;
 				break;
@@ -90,7 +91,12 @@ void SimpleIterations()
 	}
 	cout << "Метод простых итераций был выполнен за "
 		<< k << " итераций\nКорни: ";
+	cout << scientific;
+	cout.precision(eps);
+	
 	for (int i = 0; i < 3; i++) cout << resI[i] << " ";
+	double pi = acos(-1.L);
+	cout << pi;
 }
 
 int main()
