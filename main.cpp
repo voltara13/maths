@@ -5,6 +5,7 @@ using namespace std;
 
 vector<pair <double, double>> points;
 int n;
+
 void Request()
 {
 	double x, y;
