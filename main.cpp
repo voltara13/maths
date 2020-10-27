@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
 
 using namespace std;
@@ -16,7 +16,7 @@ int CheckValue()
 		{
 			cin.clear();
 			cin.ignore(32767, '\n');
-			cout << "Ââåäåíî íåâåðíîå çíà÷åíèå, ïîæàëóéñòà, ïîïðîáóéòå åù¸ ðàç: ";
+			cout << "Ð’Ð²ÐµÐ´ÐµÐ½Ð¾ Ð½ÐµÐ²ÐµÑ€Ð½Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ, Ð¿Ð¾Ð¶Ð°Ð»ÑƒÐ¹ÑÑ‚Ð°, Ð¿Ð¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÐµÑ‰Ñ‘ Ñ€Ð°Ð·: ";
 		}
 		else
 		{
@@ -29,9 +29,9 @@ int CheckValue()
 void Request()
 {
 	double x, y;
-	cout << "Ââåäèòå êîëè÷åñòâî òî÷åê: ";
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ñ‚Ð¾Ñ‡ÐµÐº: ";
 	n = CheckValue();
-	cout << "Ââåäèòå 'x' è 'y' ÷åðåç ïðîáåë\n";
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ 'x' Ð¸ 'y' Ñ‡ÐµÑ€ÐµÐ· Ð¿Ñ€Ð¾Ð±ÐµÐ»\n";
 	for (int i = 0; i < n; i++)
 	{
 		cin >> x >> y;
@@ -90,7 +90,7 @@ void PolynomialInLagrange()
 			matrix[i][j] = pow(points[j].first, n - i - 1);
 	for (int i = 0; i < n; i++)
 		res[i] = pow(-1, n - 1) * det(matrix, i) / det(matrix);
-	cout << "Êîýôôèöèåíòû, ïîëó÷åííûå ìåòîäîì Ëàãðàíæà\n";
+	cout << "ÐšÐ¾ÑÑ„Ñ„Ð¸Ñ†Ð¸ÐµÐ½Ñ‚Ñ‹, Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð½Ñ‹Ðµ Ð¼ÐµÑ‚Ð¾Ð´Ð¾Ð¼ Ð›Ð°Ð³Ñ€Ð°Ð½Ð¶Ð°\n";
 	for (int i = 0; i < n; i++) cout << "a" << i << " = " << res[n - i - 1] << endl;
 }
 
@@ -110,7 +110,7 @@ void PolynomialInNewthon()
 		}
 		res[i] = val;
 	}
-	cout << "Êîýôôèöèåíòû, ïîëó÷åííûå ìåòîäîì Íüþòîíà\n";
+	cout << "ÐšÐ¾ÑÑ„Ñ„Ð¸Ñ†Ð¸ÐµÐ½Ñ‚Ñ‹, Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð½Ñ‹Ðµ Ð¼ÐµÑ‚Ð¾Ð´Ð¾Ð¼ ÐÑŒÑŽÑ‚Ð¾Ð½Ð°\n";
 	for (int i = 0; i < n; i++) cout << "a" << i << " = " << res[i] << endl;
 }
 
@@ -118,7 +118,7 @@ void LeastSquareMethod()
 {
 	double max = 0, factor = 0;
 	int iM = 0, jM = 0, polyDeg;
-	cout << "Ââåäèòå ñòåïåíü ìíîãî÷ëåíà: ";
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÑÑ‚ÐµÐ¿ÐµÐ½ÑŒ Ð¼Ð½Ð¾Ð³Ð¾Ñ‡Ð»ÐµÐ½Ð°: ";
 	polyDeg = CheckValue();
 	vector<vector<double>> rssA(polyDeg + 1, vector<double>(polyDeg + 1));
 	vector<double> rssB(polyDeg + 1);
@@ -162,7 +162,7 @@ void LeastSquareMethod()
 		for (int j = 0; j < i; j++)
 			rssB[j] -= rssA[j][i] * res[i];
 	}
-	cout << "Êîýôôèöèåíòû, ïîëó÷åííûå ìåòîäîì íàèìåíüøèõ êâàäðàòîâ\n";
+	cout << "ÐšÐ¾ÑÑ„Ñ„Ð¸Ñ†Ð¸ÐµÐ½Ñ‚Ñ‹, Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð½Ñ‹Ðµ Ð¼ÐµÑ‚Ð¾Ð´Ð¾Ð¼ Ð½Ð°Ð¸Ð¼ÐµÐ½ÑŒÑˆÐ¸Ñ… ÐºÐ²Ð°Ð´Ñ€Ð°Ñ‚Ð¾Ð²\n";
 	for (int i = 0; i < polyDeg + 1; i++) cout << "a" << i << " = " << res[polyDeg - i] << endl;
 }
 
