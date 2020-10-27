@@ -6,15 +6,36 @@ using namespace std;
 vector<pair <double, double>> points;
 int n;
 
+int CheckValue()
+{
+	while (true)
+	{
+		int a;
+		cin >> a;
+		if (cin.fail())
+		{
+			cin.clear();
+			cin.ignore(32767, '\n');
+			cout << "¬ведено неверное значение, пожалуйста, попробуйте ещЄ раз: ";
+		}
+		else
+		{
+			cin.ignore(32767, '\n');
+			return a;
+		}
+	}
+}
+
 void Request()
 {
 	double x, y;
 	cout << "¬ведите количество точек: ";
-	cin >> n;
+	n = CheckValue();
 	cout << "¬ведите 'x' и 'y' через пробел\n";
 	for (int i = 0; i < n; i++)
 	{
 		cin >> x >> y;
+		cin.ignore(32767, '\n');
 		points.emplace_back(x, y);
 	}
 }
@@ -98,7 +119,7 @@ void LeastSquareMethod()
 	double max = 0, factor = 0;
 	int iM = 0, jM = 0, polyDeg;
 	cout << "¬ведите степень многочлена: ";
-	cin >> polyDeg;
+	polyDeg = CheckValue();
 	vector<vector<double>> rssA(polyDeg + 1, vector<double>(polyDeg + 1));
 	vector<double> rssB(polyDeg + 1);
 	vector<double> res(polyDeg + 1);
