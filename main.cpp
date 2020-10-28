@@ -88,16 +88,20 @@ void PolynomialInLagrange()
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < n; j++)
 			matrix[i][j] = pow(points[j].first, n - i - 1);
+	double det2 = det(matrix);
 	for (int i = 0; i < n; i++)
-		res[i] = pow(-1, n - 1) * det(matrix, i) / det(matrix);
+	{
+		double det1 = det(matrix, i);;
+		res[i] = det1 / det2;
+	}
 	cout << "Коэффициенты, полученные методом Лагранжа\n";
 	for (int i = 0; i < n; i++) cout << "a" << i << " = " << res[n - i - 1] << endl;
 }
 
-void PolynomialInNewthon()
+void PolynomialInNewton()
 {
 	vector<double> res(n);
-	
+
 	for (int i = 0; i < n; i++)
 	{
 		double val = 0;
@@ -171,7 +175,7 @@ int main()
 	setlocale(LC_ALL, "Russian");
 	Request();
 	PolynomialInLagrange();
-	PolynomialInNewthon();
+	PolynomialInNewton();
 	LeastSquareMethod();
 	return 0;
 }
