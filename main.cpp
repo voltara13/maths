@@ -90,10 +90,7 @@ void PolynomialInLagrange()
 			matrix[i][j] = pow(points[j].first, n - i - 1);
 	double det2 = det(matrix);
 	for (int i = 0; i < n; i++)
-	{
-		double det1 = det(matrix, i);;
-		res[i] = det1 / det2;
-	}
+		res[i] = det(matrix, i) / det2;
 	cout << "Коэффициенты, полученные методом Лагранжа\n";
 	for (int i = 0; i < n; i++) cout << "a" << i << " = " << res[n - i - 1] << endl;
 }
