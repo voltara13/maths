@@ -102,10 +102,10 @@ void PolynomialInNewton()
 	for (int i = 0; i < n; i++)
 	{
 		double val = 0;
-		for (int j = 0; j < i; j++)
+		for (int j = 0; j <= i; j++)
 		{
 			double seq = 1;
-			for (int k = 0; k < i; k++)
+			for (int k = 0; k <= i; k++)
 				if (k != j) seq *= points[j].first - points[k].first;
 			val += points[j].second / seq;
 		}
