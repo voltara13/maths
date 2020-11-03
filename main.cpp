@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <vector>
+#include <sstream>
 
 using namespace std;
 
@@ -84,6 +85,7 @@ void PolynomialInLagrange()
 	};
 	vector<double> res(n);
 	vector<vector<double>> matrix(n, vector<double>(n));
+	stringstream resStr;
 	
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < n; j++)
@@ -91,13 +93,32 @@ void PolynomialInLagrange()
 	double det2 = det(matrix);
 	for (int i = 0; i < n; i++)
 		res[i] = det(matrix, i) / det2;
-	cout << "Коэффициенты, полученные методом Лагранжа\n";
-	for (int i = 0; i < n; i++) cout << "a" << i << " = " << res[n - i - 1] << endl;
+	cout << "Полином, полученный методом Лагранжа\n";
+	for (int i = 0; i < n; i++) 
+	{
+		if (res[n - i - 1])
+		{
+			if (i)
+			{
+				if (res[n - i - 1] > 0)
+					resStr << "+" << res[n - i - 1] << "x";
+				else if (res[n - i - 1] < 0)
+					resStr << res[n - i - 1] << "x";
+				else
+					continue;
+				if (i != 1)
+					resStr << "^" << i;
+			}
+			else resStr << res[0];
+		}
+	}
+	cout << resStr.str() << endl;
 }
 
 void PolynomialInNewton()
 {
 	vector<double> res(n);
+	stringstream resStr;
 
 	for (int i = 0; i < n; i++)
 	{
@@ -111,8 +132,24 @@ void PolynomialInNewton()
 		}
 		res[i] = val;
 	}
-	cout << "Коэффициенты, полученные методом Ньютона\n";
+	cout << "Полином, полученный методом Ньютона\n";
 	for (int i = 0; i < n; i++) cout << "a" << i << " = " << res[i] << endl;
+	//for (int i = 0; i < n; i++)
+	//{
+	//	if (i)
+	//	{
+	//		if (res[i] > 0)
+	//			resStr << "+" << res[i] << "x";
+	//		else if (res[i] < 0)
+	//			resStr << res[i] << "x";
+	//		else
+	//			continue;
+	//		if (i != 1)
+	//			resStr << "^" << i;
+	//	}
+	//	else resStr << res[0];
+	//}
+	//cout << resStr.str() << endl;
 }
 
 void LeastSquareMethod()
