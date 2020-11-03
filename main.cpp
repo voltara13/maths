@@ -93,7 +93,6 @@ void PolynomialInLagrange()
 	double det2 = det(matrix);
 	for (int i = 0; i < n; i++)
 		res[i] = det(matrix, i) / det2;
-	cout << "Полином, полученный методом Лагранжа\n";
 	for (int i = 0; i < n; i++) 
 	{
 		if (res[n - i - 1])
@@ -101,18 +100,19 @@ void PolynomialInLagrange()
 			if (i)
 			{
 				if (res[n - i - 1] > 0)
-					resStr << "+" << res[n - i - 1] << "x";
+				{
+					if (resStr.str()[0]) resStr << "+";
+					resStr << res[n - i - 1] << "x";
+				}
 				else if (res[n - i - 1] < 0)
 					resStr << res[n - i - 1] << "x";
-				else
-					continue;
 				if (i != 1)
 					resStr << "^" << i;
 			}
-			else resStr << res[0];
+			else resStr << res[n - i - 1];
 		}
 	}
-	cout << resStr.str() << endl;
+	cout << "Полином, полученный методом Лагранжа\n" << resStr.str() << endl;
 }
 
 void PolynomialInNewton()
@@ -132,24 +132,33 @@ void PolynomialInNewton()
 		}
 		res[i] = val;
 	}
-	cout << "Полином, полученный методом Ньютона\n";
-	for (int i = 0; i < n; i++) cout << "a" << i << " = " << res[i] << endl;
-	//for (int i = 0; i < n; i++)
-	//{
-	//	if (i)
-	//	{
-	//		if (res[i] > 0)
-	//			resStr << "+" << res[i] << "x";
-	//		else if (res[i] < 0)
-	//			resStr << res[i] << "x";
-	//		else
-	//			continue;
-	//		if (i != 1)
-	//			resStr << "^" << i;
-	//	}
-	//	else resStr << res[0];
-	//}
-	//cout << resStr.str() << endl;
+	for (int i = 0; i < n; i++)
+	{
+		if (res[i])
+		{
+			if (i)
+			{
+				if (res[i] > 0)
+				{
+					if (resStr.str()[0]) resStr << "+";
+					resStr << res[i];
+				}		
+				else if (res[i] < 0) resStr << res[i];
+				for (int j = 0; j < i; j++)
+				{
+					if (points[j].first)
+					{
+						resStr << "(x";
+						if (points[j].first > 0) resStr << "-" << points[j].first << ")";
+						else if (points[j].first < 0) resStr << "+" << -points[j].first << ")";
+					}
+					else resStr << "x";
+				}
+			}
+			else resStr << res[0];
+		}
+	}
+	cout << "Полином, полученный методом Ньютона\n" << resStr.str() << endl;
 }
 
 void LeastSquareMethod()
@@ -201,7 +210,7 @@ void LeastSquareMethod()
 			rssB[j] -= rssA[j][i] * res[i];
 	}
 	cout << "Коэффициенты, полученные методом наименьших квадратов\n";
-	for (int i = 0; i < polyDeg + 1; i++) cout << "a" << i << " = " << res[polyDeg - i] << endl;
+	for (int i = 0; i < polyDeg + 1; i++) cout << "a" << i << " = " << res[i] << endl;
 }
 
 int main()
