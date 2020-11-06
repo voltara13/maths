@@ -4,7 +4,7 @@
 
 using namespace std;
 
-vector<pair <double, double>> points;
+vector<pair <double, double>> points;//
 int n;
 
 int CheckValue()
