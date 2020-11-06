@@ -41,6 +41,48 @@ void Request()
 	}
 }
 
+void GaussMethod()
+{
+	double max = 0, factor = 0;
+	int iM = 0, jM = 0;
+	//Находим главный элемент по всей матрице
+	for (int i = 0; i < 3; i++)
+		for (int j = 0; j < 3; j++)
+			if (abs(A[i][j]) > max)
+				max = A[i][j], iM = i, jM = j;
+	//Делаем перестановку строк и столбцов относительно главного элемента
+	for (int j = 0; j < 3; j++)
+		swap(A[0][j], A[iM][j]);
+	for (int i = 0; i < 3; i++)
+		swap(A[i][0], A[i][jM]);
+	swap(B[0], B[iM]);
+	//Начинаем приводить каждую строку
+	for (int i = 0; i < 3; i++)
+	{
+		factor = A[i][i];
+		for (int j = 0; j < 3; j++)
+			A[i][j] /= factor;
+		B[i] /= factor;
+		for (int k = i + 1; k < 3; k++)
+			if (A[k][i])
+			{
+				factor = A[k][i] / A[i][i];
+				for (int j = 0; j < 3; j++)
+					A[k][j] -= factor * A[i][j];
+				B[k] -= B[i] * factor;
+			}
+	}
+	//Обратная подстановка
+	for (int i = 2; i >= 0; i--)
+	{
+		resG[i] = B[i] / A[i][i];
+		for (int j = 0; j < i; j++)
+			B[j] -= A[j][i] * resG[i];
+	}
+	cout << "Метод Гаусса итераций был выполнен\nКорни: ";
+	for (int i = 0; i < 3; i++) cout << resG[i] << " ";
+}
+
 void PolynomialInLagrange()
 {
 	auto det
