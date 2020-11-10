@@ -51,6 +51,7 @@ void PolynomialInLagrange(vector<double> &pointsY)
 			const double EPS = 1E-9;
 			vector<vector<double>> matrix = _matrix;
 			if (p != -1)
+			{
 				for (int i = 0; i < pointsY.size(); i++)
 					if (i == p)
 					{
@@ -58,12 +59,15 @@ void PolynomialInLagrange(vector<double> &pointsY)
 							matrix[i][j] = pointsY[j];
 						break;
 					}
+			}
 			for (int i = 0; i < pointsY.size(); i++)
 			{
 				int iM = i;
 				for (int j = i + 1; j < pointsY.size(); j++)
+				{
 					if (abs(matrix[j][i]) > abs(matrix[iM][i]))
 						iM = j;
+				}
 				if (abs(matrix[iM][i]) < EPS)
 				{
 					det = 0;
@@ -76,9 +80,13 @@ void PolynomialInLagrange(vector<double> &pointsY)
 				for (int j = i + 1; j < pointsY.size(); j++)
 					matrix[i][j] /= matrix[i][i];
 				for (int j = 0; j < pointsY.size(); j++)
+				{
 					if (j != i && abs(matrix[j][i]) > EPS)
+					{
 						for (int k = i + 1; k < pointsY.size(); k++)
 							matrix[j][k] -= matrix[i][k] * matrix[j][i];
+					}					
+				}
 			}
 			return det;
 		}
@@ -221,13 +229,16 @@ void Derivative()
 	vector<double> f(n);
 	vector<double> df(n - 1);
 	vector<double> d2f(n - 2);
+	
 	for (int i = 0; i < n; i++)
 		f[i] = points[i].second;
 	for (int i = 0; i < n - 1; i++)
-		df[i] = (points[i + 1].second - points[i].second) / (points[i + 1].first - points[i].first);
+		df[i] = (points[i + 1].second - points[i].second) /
+		(points[i + 1].first - points[i].first);
 	for (int i = 2; i < n - 2; i++)
 		d2f[i] = (points[i + 2].second - 2 * points[i].second + points[i - 2].second) / 
 		(4 * pow(points[i + 1].first - points[i].first, 2));
+	
 	cout << "f(x) = ";
 	PolynomialInLagrange(f);
 	cout << "df(x) = ";
