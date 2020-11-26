@@ -20,6 +20,7 @@ void Input()
 	cin >> a >> b;
 	cout << "Введите число отрезков: ";
 	cin >> n;
+	cout << fixed << setprecision(prec);
 }
 
 void MiddleRectangles()
@@ -29,7 +30,7 @@ void MiddleRectangles()
 	for (int i = 0; i < n; i++, x += h)
 		res += f(x + h / 2);
 	cout << "Метод средних прямоугольников\n" << 
-		fixed << setprecision(prec) << h * res << endl;
+		h * res << endl;
 }
 
 void RightRectangles()
@@ -40,7 +41,7 @@ void RightRectangles()
 	for (int i = 0; i < n; i++, x += h)
 		res += f(x + h);
 	cout << "Метод правых прямоугольников\n" << 
-		fixed << setprecision(prec) << h * res << endl;
+		h * res << endl;
 }
 
 void NewtonCotes()
@@ -52,7 +53,7 @@ void NewtonCotes()
 	for (int i = 0; i <= n; i++, x += h)
 		res += wi[i] * f(x);
 	cout << "Метод Ньютона-Котеса 3-го порядка\n" << 
-		fixed << setprecision(prec) << C0 * h * res << endl;
+		C0 * h * res << endl;
 }
 
 int main()
