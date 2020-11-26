@@ -6,6 +6,7 @@ using namespace std;
 int prec, n;
 double a, b;
 
+
 double f(double x)
 {
 	return (x * x * log(x)) / (10 + x * x);
@@ -15,7 +16,6 @@ void Input()
 {
 	cout << "Введите количество знаков после запятой: ";
 	cin >> prec;
-	prec++;
 	cout << "Введите пределы интегрирования (через пробел): ";
 	cin >> a >> b;
 	cout << "Введите число отрезков: ";
@@ -29,7 +29,7 @@ void MiddleRectangles()
 	for (int i = 0; i < n; i++, x += h)
 		res += f(x + h / 2);
 	cout << "Метод средних прямоугольников\n" << 
-		setprecision(prec) << h * res << endl;
+		fixed << setprecision(prec) << h * res << endl;
 }
 
 void RightRectangles()
@@ -40,7 +40,7 @@ void RightRectangles()
 	for (int i = 0; i < n; i++, x += h)
 		res += f(x + h);
 	cout << "Метод правых прямоугольников\n" << 
-		setprecision(prec) << h * res << endl;
+		fixed << setprecision(prec) << h * res << endl;
 }
 
 void NewtonCotes()
@@ -52,7 +52,7 @@ void NewtonCotes()
 	for (int i = 0; i <= n; i++, x += h)
 		res += wi[i] * f(x);
 	cout << "Метод Ньютона-Котеса 3-го порядка\n" << 
-		setprecision(prec) << C0 * h * res << endl;
+		fixed << setprecision(prec) << C0 * h * res << endl;
 }
 
 int main()
