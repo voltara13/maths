@@ -39,9 +39,9 @@ void RightRectangles()
 	cout << "Введите число отрезков: ";
 	cin >> n;
 	h = (b - a) / n;
-	x = a - h;
-	for (int i = 0; i < n; i++, x += h)
-		res += f(x + h);
+	x = a + h;
+	for (int i = 0; i < n - 1; i++, x += h)
+		res += f(x);
 	cout << setprecision(prec) << h * res << endl;
 }
 
