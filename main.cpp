@@ -37,8 +37,8 @@ void RightRectangles()
 	double res = 0, h = 0, x = a;
 	h = (b - a) / n;
 	x -= h;
-	for (int i = 0; i < n - 1; i++, x += h)
-		res += f(x);
+	for (int i = 0; i < n; i++, x += h)
+		res += f(x + h);
 	cout << "Метод правых прямоугольников\n" << 
 		setprecision(prec) << h * res << endl;
 }
