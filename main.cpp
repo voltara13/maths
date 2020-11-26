@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int prec;
+int prec, n;
 double a, b;
 
 double f(double x)
@@ -18,36 +18,41 @@ void Input()
 	prec++;
 	cout << "Введите пределы интегрирования (через пробел): ";
 	cin >> a >> b;
+	cout << "Введите число отрезков: ";
+	cin >> n;
 }
 
 void MiddleRectangles()
 {
-	int n;
 	double res = 0, h = 0, x = a;
-	cout << "Введите число отрезков: ";
-	cin >> n;
 	h = (b - a) / n;
 	for (int i = 0; i < n; i++, x += h)
 		res += f(x + h / 2);
-	cout << setprecision(prec) << h * res << endl;
+	cout << "Метод средних прямоугольников\n" << 
+		setprecision(prec) << h * res << endl;
 }
 
 void RightRectangles()
 {
-	int n;
-	double res = 0, h = 0, x = 0;
-	cout << "Введите число отрезков: ";
-	cin >> n;
+	double res = 0, h = 0, x = a;
 	h = (b - a) / n;
-	x = a + h;
+	x -= h;
 	for (int i = 0; i < n - 1; i++, x += h)
 		res += f(x);
-	cout << setprecision(prec) << h * res << endl;
+	cout << "Метод правых прямоугольников\n" << 
+		setprecision(prec) << h * res << endl;
 }
 
 void NewtonCotes()
 {
-	
+	int n = 3;
+	int wi[4] = { 1, 3, 3, 1 };
+	double res = 0, h = 0, x = a, C0 = 3.0 / 8.0;
+	h = (b - a) / n;
+	for (int i = 0; i <= n; i++, x += h)
+		res += wi[i] * f(x);
+	cout << "Метод Ньютона-Котеса 3-го порядка\n" << 
+		setprecision(prec) << C0 * h * res << endl;
 }
 
 int main()
