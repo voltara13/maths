@@ -5,7 +5,11 @@ using namespace std;
 
 int prec, n;
 double a, b;
-
+/// <summary>
+/// //////////
+/// </summary>
+/// <param name="x"></param>
+/// <returns></returns>
 
 double f(double x)
 {
@@ -29,7 +33,7 @@ void MiddleRectangles()
 	h = (b - a) / n;
 	for (int i = 0; i < n; i++, x += h)
 		res += f(x + h / 2);
-	cout << "Метод средних прямоугольников\n" << 
+	cout << "Метод средних прямоугольников\n" <<
 		h * res << endl;
 }
 
@@ -40,7 +44,7 @@ void RightRectangles()
 	x -= h;
 	for (int i = 0; i < n; i++, x += h)
 		res += f(x + h);
-	cout << "Метод правых прямоугольников\n" << 
+	cout << "Метод правых прямоугольников\n" <<
 		h * res << endl;
 }
 
@@ -52,7 +56,7 @@ void NewtonCotes()
 	h = (b - a) / n;
 	for (int i = 0; i <= n; i++, x += h)
 		res += wi[i] * f(x);
-	cout << "Метод Ньютона-Котеса 3-го порядка\n" << 
+	cout << "Метод Ньютона-Котеса 3-го порядка\n" <<
 		C0 * h * res << endl;
 }
 
