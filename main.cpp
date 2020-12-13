@@ -76,7 +76,17 @@ void RungeKuttaMerson()
 
 void CorrectedEuler()
 {
-	
+	vector<pair<double, double>> points = { make_pair(x_0, y_0) };
+	double h = abs(abs(x_n) - abs(x_0)) / pow(10, prec);
+	double x = points[0].first;
+	while (abs(x_n) - abs(x) > 0)
+		points.emplace_back(
+			x += h,
+			points.back().second + h * 0.5 * (f(points.back().first, points.back().second) + f(
+			points.back().first + h, points.back().second + h * f(
+			points.back().first, points.back().second))));
+	for (const auto& element : points)
+		cout << element.first << ";" << element.second << endl;
 }
 
 void Adams()
@@ -88,7 +98,8 @@ int main()
 {
 	setlocale(LC_ALL, "Russian");
 	Input();
-	//Euler();
+	Euler();
 	RungeKuttaMerson();
+	CorrectedEuler();
 	return 0;
 }
