@@ -23,7 +23,7 @@ void Euler()
 {
 	vector<pair<double, double>> points = { make_pair(x_0, y_0) };
 	double h;
-	cout << "Введите значение шага: ";
+	cout << "\nВведите значение шага: ";
 	cin >> h;
 	for (double x = points[0].first + h; abs(x_n) - abs(x) > 0; x += h)
 		points.emplace_back(
@@ -31,6 +31,7 @@ void Euler()
 			points.back().second + h * f(
 				points.back().first, 
 				points.back().second));
+	cout << "Точки полученные через метод Эйлера\n";
 	for (const auto& element : points)
 		cout << element.first << ";" << element.second << endl;
 }
@@ -40,7 +41,7 @@ void RungeKuttaMerson()
 	vector<pair<double, double>> points = { make_pair(x_0, y_0) };
 	int prec;
 	double h = 1;
-	cout << "Введите количество знаков после запятой: ";
+	cout << "\nВведите количество знаков после запятой: ";
 	cin >> prec;
 	for (double x = points[0].first; abs(x_n) - abs(x) > 0;)
 	{
@@ -73,6 +74,7 @@ void RungeKuttaMerson()
 			h *= 2;
 	}
 	cout << fixed << setprecision(prec);
+	cout << "\nТочки полученные через метод Рунге–Кутты Мерсона\n";
 	for (const auto& element : points)
 		cout << element.first << ";" << element.second << endl;
 }
@@ -81,7 +83,7 @@ void CorrectedEuler()
 {
 	vector<pair<double, double>> points = { make_pair(x_0, y_0) };
 	double h;
-	cout << "Введите значение шага: ";
+	cout << "\nВведите значение шага: ";
 	cin >> h;	
 	for(double x = points[0].first + h; abs(x_n) - abs(x) > 0; x += h)
 		points.emplace_back(
@@ -93,6 +95,7 @@ void CorrectedEuler()
 				points.back().second + h * f(
 				points.back().first, 
 				points.back().second))));
+	cout << "Точки полученные через исправленный метод Эйлера\n";
 	for (const auto& element : points)
 		cout << element.first << ";" << element.second << endl;
 }
@@ -101,7 +104,7 @@ void Adams()
 {
 	vector<pair<double, double>> points = { make_pair(x_0, y_0) };
 	double h, x;
-	cout << "Введите значение шага: ";
+	cout << "\nВведите значение шага: ";
 	cin >> h;
 	for (x = points[0].first + h; points.size() != 3; x += h)
 		points.emplace_back(
@@ -123,6 +126,7 @@ void Adams()
 				points[points.size() - 2].second) + 5 * f(
 				points[points.size() - 3].first,
 				points[points.size() - 3].second)));
+	cout << "Точки полученные через метод Адамса\n";
 	for (const auto& element : points)
 		cout << element.first << ";" << element.second << endl;
 }
