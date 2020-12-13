@@ -7,7 +7,6 @@ using namespace std;
 double x_0 = 1;
 double y_0 = 15;
 double x_n;
-int prec;
 
 double f(double x, double y)
 {
@@ -18,19 +17,17 @@ void Input()
 {
 	cout << "Введите координату конечной точки x: ";
 	cin >> x_n;
-	cout << "Введите количество знаков после запятой: ";
-	cin >> prec;
-	cout << fixed << setprecision(prec);
 }
 
 void Euler()
 {
 	vector<pair<double, double>> points = { make_pair(x_0, y_0) };
-	double h = abs(abs(x_n) - abs(x_0)) / pow(10, prec);
-	double x = points[0].first;
-	while (abs(x_n) - abs(x) > 0)
+	double h;
+	cout << "Введите значение шага: ";
+	cin >> h;
+	for (double x = points[0].first + h; abs(x_n) - abs(x) > 0; x += h)
 		points.emplace_back(
-			x += h, 
+			x, 
 			points.back().second + h * f(
 				points.back().first, 
 				points.back().second));
@@ -41,11 +38,15 @@ void Euler()
 void RungeKuttaMerson()
 {
 	vector<pair<double, double>> points = { make_pair(x_0, y_0) };
+	int prec;
 	double h = 1;
-	double x = points[0].first;
-	while (abs(x_n) - abs(x) > 0)
+	cout << "Введите количество знаков после запятой: ";
+	cin >> prec;
+	for (double x = points[0].first; abs(x_n) - abs(x) > 0;)
 	{
-		double k_1 = h * f(points.back().first, points.back().second);
+		double k_1 = h * f(
+			points.back().first, 
+			points.back().second);
 		double k_2 = h * f(
 			points.back().first + 1.0 / 3.0 * h,
 			points.back().second + 1.0 / 3.0 * k_1);
@@ -64,12 +65,14 @@ void RungeKuttaMerson()
 			h /= 2;
 			continue;
 		}
+		if (abs(x_n) - abs(x + h) <= 0) break;
 		points.emplace_back(
 			x += h,
 			points.back().second + 1.0 / 6.0 * k_1 + 2.0 / 3.0 * k_4 + 1.0 / 6.0 * k_5);
 		if (abs(delta) <= pow(10, -prec) * abs(points.back().second) / 32)
 			h *= 2;
 	}
+	cout << fixed << setprecision(prec);
 	for (const auto& element : points)
 		cout << element.first << ";" << element.second << endl;
 }
@@ -77,21 +80,51 @@ void RungeKuttaMerson()
 void CorrectedEuler()
 {
 	vector<pair<double, double>> points = { make_pair(x_0, y_0) };
-	double h = abs(abs(x_n) - abs(x_0)) / pow(10, prec);
-	double x = points[0].first;
-	while (abs(x_n) - abs(x) > 0)
+	double h;
+	cout << "Введите значение шага: ";
+	cin >> h;	
+	for(double x = points[0].first + h; abs(x_n) - abs(x) > 0; x += h)
 		points.emplace_back(
-			x += h,
-			points.back().second + h * 0.5 * (f(points.back().first, points.back().second) + f(
-			points.back().first + h, points.back().second + h * f(
-			points.back().first, points.back().second))));
+			x,
+			points.back().second + h * 0.5 * (f(
+				points.back().first, 
+				points.back().second) + f(
+				points.back().first + h, 
+				points.back().second + h * f(
+				points.back().first, 
+				points.back().second))));
 	for (const auto& element : points)
 		cout << element.first << ";" << element.second << endl;
 }
 
 void Adams()
 {
-	
+	vector<pair<double, double>> points = { make_pair(x_0, y_0) };
+	double h, x;
+	cout << "Введите значение шага: ";
+	cin >> h;
+	for (x = points[0].first + h; points.size() != 3; x += h)
+		points.emplace_back(
+			x,
+			points.back().second + h * 0.5 * (f(
+				points.back().first, 
+				points.back().second) + f(
+				points.back().first + h, 
+				points.back().second + h * f(
+				points.back().first, 
+				points.back().second))));
+	for (; abs(x_n) - abs(x) > 0; x += h)
+		points.emplace_back(
+			x,
+			points.back().second + h / 12.0 * (23 * f(
+				points[points.size() - 1].first,
+				points[points.size() - 1].second) - 16 * f(
+				points[points.size() - 2].first,
+				points[points.size() - 2].second) + 5 * f(
+				points[points.size() - 3].first,
+				points[points.size() - 3].second)));
+	for (const auto& element : points)
+		cout << element.first << ";" << element.second << endl;
 }
 
 int main()
@@ -101,5 +134,6 @@ int main()
 	Euler();
 	RungeKuttaMerson();
 	CorrectedEuler();
+	Adams();
 	return 0;
 }
